@@ -18,6 +18,7 @@ const VendaSchema = new mongoose.Schema({
     nome: { type: String, required: true },
     telefone: { type: String, required: true },
     endereco: { type: String, required: true },
+    status: { type: String, default: 'PENDENTE' }, // <-- ADICIONE ESTA LINHA
     data: { type: Date, default: Date.now }
 });
 
