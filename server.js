@@ -9,10 +9,15 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('Conectado ao MongoDB Atlas com sucesso!'))
-    .catch((err) => console.error('Erro ao conectar ao MongoDB:', err));
-
+// --- Conexão com o Banco de Dados MongoDB Atlas (Versão Melhorada) ---
+mongoose.connect(process.env.MONGO_URI, {
+    serverSelectionTimeoutMS: 5000, // Aumenta o tempo de espera para 5 segundos
+    socketTimeoutMS: 45000, // Aumenta o tempo limite para operações
+})
+.then(() => console.log('Conectado ao MongoDB Atlas com sucesso!'))
+.catch((err) => {
+    console.error('Erro detalhado ao conectar ao MongoDB:', err);
+});
 const VendaSchema = new mongoose.Schema({
     numero: { type: String, required: true, unique: true },
     nome: { type: String, required: true },
